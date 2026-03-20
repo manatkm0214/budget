@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --bg:      #0a0a0f;
+  --bg2:     #111118;
+  --bg3:     #1a1a24;
+  --bg4:     #22222f;
+  --card:    #1e1e2a;
+  --border:  rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.14);
+  --text:    #e8e8f0;
+  --text2:   #9898aa;
+  --text3:   #5a5a6a;
+  --accent:  #7c6fe0;
+  --accent2: #5b50b0;
+  --green:   #2dbe8a;
+  --green2:  #1d8f65;
+  --red:     #e05555;
+  --red2:    #b03a3a;
+  --amber:   #e0a830;
+  --amber2:  #b07d1a;
+  --blue:    #4a9fe0;
+  --teal:    #2db8c8;
+  --pink:    #e05a8a;
+  --radius:  12px;
+  --radius2: 8px;
+}
+
+[data-theme="light"] {
+  --bg:      #f0f0f8;
+  --bg2:     #f8f8ff;
+  --bg3:     #e8e8f5;
+  --bg4:     #dcdcee;
+  --card:    #ffffff;
+  --border:  rgba(0,0,0,0.08);
+  --border2: rgba(0,0,0,0.14);
+  --text:    #1a1a2a;
+  --text2:   #5a5a7a;
+  --text3:   #9898aa;
+  --accent:  #6357cc;
+  --accent2: #4a3fa0;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.mono { font-family: 'Space Mono', monospace; }
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 3px; }
+
+/* ===== RANGE INPUT ===== */
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%; height: 4px;
+  border-radius: 2px;
+  background: var(--bg3);
+  outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+}
+
+/* ===== SAFETY BADGES ===== */
+.safety-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; border-radius: 30px; font-size: 14px; font-weight: 700; }
+.safety-s { background: rgba(45,190,138,0.15); color: #2dbe8a; border: 1px solid #1d8f65; }
+.safety-a { background: rgba(45,190,138,0.1);  color: #7de0aa; border: 1px solid #3da870; }
+.safety-b { background: rgba(74,159,224,0.1);  color: #4a9fe0; border: 1px solid #2a7ab0; }
+.safety-c { background: rgba(224,168,48,0.1);  color: #e0a830; border: 1px solid #b07d1a; }
+.safety-d { background: rgba(224,85,85,0.1);   color: #e05555; border: 1px solid #b03a3a; }
+
+/* ===== PRINT ===== */
+@media print {
+  /*
+   * size: auto → OSのデフォルト用紙サイズ（A4/Letter）に従う。
+   * "A4 portrait" を固定指定するとブラウザのPDF出力が優先されやすいため
+   * auto にすることで物理プリンターのドライバー設定を尊重させる。
+   */
+  @page {
+    size: auto;
+    margin: 15mm 12mm;
+  }
+
+  nav, button, .no-print { display: none !important; }
+
+  html, body {
+    background: white !important;
+    color: #111 !important;
+    font-size: 10pt !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* print-only classes — invisible on screen, visible when printing */
+  .print-only { display: block !important; }
+  .print-header {
+    border-bottom: 1.5pt solid #7c6fe0 !important;
+    padding-bottom: 6pt !important;
+    margin-bottom: 10pt !important;
+  }
+  .print-footer {
+    border-top: 0.5pt solid #ddd !important;
+    padding-top: 5pt !important;
+    margin-top: 10pt !important;
+    font-size: 7pt !important;
+    color: #aaa !important;
+    display: flex !important;
+    justify-content: space-between !important;
+  }
+  .print-card {
+    background: white !important;
+    border: 0.5pt solid #ccc !important;
+    border-radius: 4pt !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .print-kpi-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 6pt !important;
+  }
+  .print-kpi-cell {
+    background: #f8f8ff !important;
+    border: 0.5pt solid #ddd !important;
+    border-radius: 3pt !important;
+    padding: 6pt 8pt !important;
+    break-inside: avoid;
+  }
+  .print-kpi-label { font-size: 7pt !important; color: #888 !important; margin-bottom: 2pt; }
+  .print-kpi-value { font-size: 13pt !important; font-weight: 700 !important; color: #111 !important; }
+  .print-table { width: 100% !important; border-collapse: collapse !important; font-size: 8.5pt !important; }
+  .print-table th { background: #ededf8 !important; border: 0.5pt solid #ccc !important; padding: 4pt 6pt !important; text-align: left !important; }
+  .print-table td { border: 0.5pt solid #ddd !important; padding: 4pt 6pt !important; vertical-align: middle !important; }
+  .print-table tr:nth-child(even) td { background: #f8f8ff !important; }
+  .print-alert { padding: 4pt 8pt !important; border-left: 2pt solid !important; font-size: 8pt !important; margin-bottom: 4pt !important; }
+  .print-alert-danger { border-color: #e05555 !important; background: #fff0f0 !important; color: #c03333 !important; }
+  .print-alert-warn   { border-color: #e0a830 !important; background: #fff8e0 !important; color: #806010 !important; }
+  .print-alert-ok     { border-color: #2dbe8a !important; background: #eefaf5 !important; color: #1a7050 !important; }
+  .print-bar-wrap { background: #eee !important; height: 4pt !important; border-radius: 2pt !important; overflow: hidden !important; margin-top: 3pt !important; }
+  .print-bar-fill { height: 4pt !important; border-radius: 2pt !important; }
+  .print-dot { display: inline-block !important; width: 7pt !important; height: 7pt !important; border-radius: 50% !important; }
+  .print-break-before { page-break-before: always !important; break-before: page !important; }
+  .print-break-avoid  { page-break-inside: avoid !important; break-inside: avoid !important; }
+}
